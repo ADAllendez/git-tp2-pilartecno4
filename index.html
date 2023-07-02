@@ -45,11 +45,13 @@
       <!-- Tabla para visualizar el backlog de videojuegos -->
       <table class="table is-fullwidth is-striped is-hoverable">
         <thead>
-          <tr>
-            <th>Videojuego</th>
-            <th>Estado</th>
-          </tr>
-        </thead>
+            <tr>
+              <th>Videojuego</th>
+              <th>Estado</th>
+              <th>Acciones</th> <!-- Nueva columna para el botón de eliminar -->
+            </tr>
+          </thead>
+          
         <tbody id="gameList">
           <tr>
             <td>The Legend of Zelda: Breath of the Wild</td>
@@ -74,18 +76,21 @@
       var gameName = document.getElementById('gameName').value;
       var gameStatus = document.getElementById('gameStatus').value;
     
-      // Crear una nueva fila y celdas
-      var newRow = document.createElement('tr');
-      var nameCell = document.createElement('td');
-      var statusCell = document.createElement('td');
-    
-      // Asignar los valores del formulario a las celdas
-      nameCell.textContent = gameName;
-      statusCell.textContent = gameStatus;
-    
-      // Añadir las celdas a la nueva fila
-      newRow.appendChild(nameCell);
-      newRow.appendChild(statusCell);
+     // Crear una nueva fila y celdas
+     var newRow = document.createElement('tr');
+     var nameCell = document.createElement('td');
+     var statusCell = document.createElement('td');
+     var actionsCell = document.createElement('td'); // Nueva celda para el botón de eliminar
+
+     // Asignar los valores del formulario a las celdas
+     nameCell.textContent = gameName;
+     statusCell.textContent = gameStatus;
+     actionsCell.innerHTML = '<button class="button is-danger is-small">Eliminar</button>'; // Botón de eliminar
+
+     // Añadir las celdas a la nueva fila
+     newRow.appendChild(nameCell);
+     newRow.appendChild(statusCell);
+     newRow.appendChild(actionsCell); // Añadir la celda del botón de eliminar
     
       // Añadir la nueva fila a la tabla
       document.getElementById('gameList').appendChild(newRow);
@@ -93,6 +98,12 @@
       // Limpiar el formulario
       document.getElementById('gameName').value = '';
       document.getElementById('gameStatus').value = 'Planeo jugar';
+      actionsCell.querySelector('button').addEventListener('click', function() {
+     // Eliminar la fila padre del botón (fila completa)
+     var row = this.parentNode.parentNode;
+     row.parentNode.removeChild(row);
+    });
+
     });
     </script>
     
